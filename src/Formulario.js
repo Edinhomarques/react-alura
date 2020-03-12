@@ -20,36 +20,41 @@ class Formulario extends Component {
     const {nome, livro, preco} = this.state;
     return(
       <form >
-        <label htmlFor="nome">Nome</label>
-        <input
-            id="nome"
-            type="text"
-            name="nome"
-            value={nome}
-            onChange={(event) => this.setState({nome: event.target.value}) }
-            />
+        <div className="row">
+          <div className="input-field col s4">
+            <label className="input-field" htmlFor="nome">Nome</label>
+            <input
+                className="validate"
+                id="nome"
+                type="text"
+                name="nome"
+                value={nome}
+                onChange={(event) => this.setState({nome: event.target.value}) }
+                />
+          </div>
+          <div className="input-field col s4">
+            <label className="input-field" htmlFor="livro">Livro</label>
+            <input
+                id="livro"
+                type="text"
+                name="livro"
+                value={livro}
+                onChange={(event) => this.setState({livro: event.target.value}) }
+                />
+          </div>
+          <div className="input-field col s4">
+            <label className="input-field" htmlFor="preco">Preço</label>
+            <input
+                id="preco"
+                type="text"
+                name="preco"
+                value={preco}
+                onChange={(event) => this.setState({preco: event.target.value}) }
+                />
+          </div>
+        </div>
 
-        <label htmlFor="livro">Livro</label>
-        <input
-            id="livro"
-            type="text"
-            name="livro"
-            value={livro}
-            onChange={(event) => this.setState({livro: event.target.value}) }
-            />
-
-
-        <label htmlFor="preco">Preço</label>
-        <input
-            id="preco"
-            type="text"
-            name="preco"
-            value={preco}
-            onChange={(event) => this.setState({preco: event.target.value}) }
-            />
-
-
-        <button onClick={this.submitForm} type="button">Salvar</button>
+        <button onClick={this.submitForm}  className="waves-effect waves-light indigo lighten-2 btn" type="button">Salvar</button>
       </form>
     )
   }
