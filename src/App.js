@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {Component, Fragment} from 'react';
 import './App.css';
-import Table from './Table'
-class App extends React.Component {
+import Table from './Table';
+import Form from './Formulario'
+class App extends Component {
   state = {
      autores: [
       {
@@ -22,6 +23,9 @@ class App extends React.Component {
       }
     ]
   }
+  addAutor = autor => {
+    this.setState({autores: [...this.state.autores, autor]})
+  }
   removeAutor = index => {
     const { autores } = this.state;
    
@@ -36,10 +40,11 @@ class App extends React.Component {
  
  render(){
     return (
-      <div className="App">
-        <Table autores={ this.state.autores } removeAutor={this.removeAutor}/>
+      <Fragment>
 
-      </div>
+        <Table autores={ this.state.autores } removeAutor={this.removeAutor}/>
+        <Form addAutor={this.addAutor}/>
+      </Fragment>
     );
  }
 }
