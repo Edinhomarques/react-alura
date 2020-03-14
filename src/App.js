@@ -4,7 +4,7 @@ import Table from './Table';
 import Form from './Formulario';
 import Header from './Header';
 import 'materialize-css/dist/css/materialize.min.css';
-
+import PopUp from './PopUp'
 class App extends Component {
   state = {
      autores: [
@@ -28,6 +28,7 @@ class App extends Component {
   }
   addAutor = autor => {
     this.setState({autores: [...this.state.autores, autor]})
+    PopUp.exibeMensagem('sucess', "Autor Adicionado com sucesso")
   }
   removeAutor = index => {
     const { autores } = this.state;
@@ -39,6 +40,9 @@ class App extends Component {
         })
       }
     )
+    PopUp.exibeMensagem('sucess', "Autor removido com sucesso")
+
+
   }
  
  render(){
