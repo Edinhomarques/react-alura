@@ -1,10 +1,14 @@
 import React, {Component, Fragment} from 'react';
-import './App.css';
+import PopUp from './PopUp';
+
 import Table from './Table';
 import Form from './Formulario';
 import Header from './Header';
+
+import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
-import PopUp from './PopUp'
+
+
 class App extends Component {
   state = {
      autores: [
@@ -50,6 +54,7 @@ class App extends Component {
       <Fragment>
         <Header />
         <div className="container mb-10">
+          <h1>Casa do Codigo</h1>
           <Table autores={ this.state.autores } removeAutor={this.removeAutor}/>
           <Form addAutor={this.addAutor}/>
         </div>
