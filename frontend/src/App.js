@@ -7,47 +7,51 @@ import Header from './Header';
 
 import './App.css';
 import 'materialize-css/dist/css/materialize.min.css';
+import ApiService from './ApiService';
 
 
 class App extends Component {
-  state = {
-     autores: [
-      {
-        nome: 'Loiane',
-        livro:'Estrutura de dados e algoritmo js',
-        preco:65.00
-      },
-      {
-        nome: 'Paulo',
-        livro:'React',
-        preco:165.00
-        
-      },
-      {
-        nome: 'Flavio Almeida',
-        livro:'Cangaceiro js',
-        preco:60.00
-      }
-    ]
+  constructor(props) {
+    super(props);
+    this.state = {
+      autores: [],
+    };
   }
+  componentDidMount( ){
+    ApiService.ListaAutores()
+    .then(res => ApiService.TrataErros(res))
+    .then(res => {
+      if(res.message === 'success'){
+        this.setState({autores: [...this.state.autores, ...res.data]})
+      } 
+    })
+    .catch(err =>PopUp.exibeMensagem('error', "Erro na comunicação com a API ao tentar listar os autores"));  
+  }
+
   addAutor = autor => {
-    this.setState({autores: [...this.state.autores, autor]})
-    PopUp.exibeMensagem('sucess', "Autor Adicionado com sucesso")
-  }
-  removeAutor = index => {
-    const { autores } = this.state;
-   
-    this.setState(
-      {
-        autores: autores.filter( ( autor, position ) => { 
-          return index !== position;
-        })
+    ApiService.CriaAutor(JSON.stringify(autor))
+    .then(res => ApiService.TrataErros(res))
+    .then(res => {
+      if(res.message === 'success'){
+        this.setState({ autores:[...this.state.autores, autor]});
+        PopUp.exibeMensagem('success', "Autor adicionado com sucesso");
       }
-    )
-    PopUp.exibeMensagem('sucess', "Autor removido com sucesso")
-
-
-  }
+    })
+    .catch(err =>PopUp.exibeMensagem('error', "Erro na comunicação com a API ao tentar criar o autor"));
+}
+  removeAutor = id => {
+    const { autores } = this.state;
+    const autoresAtualizado = autores.filter(autor => autor.id !== id)
+    ApiService.RemoveAutor(id)
+    .then(res => ApiService.TrataErros(res))
+    .then(res => {
+        if(res.message === 'deleted') {
+          this.setState({autores: [...autoresAtualizado]});
+          PopUp.exibeMensagem('error', "Autor removido com sucesso");
+        }
+    })
+    .catch(err => PopUp.exibeMensagem('error', "Erro na comunicação com a API ao tentar remover o autor"))
+} 
  
  render(){
    

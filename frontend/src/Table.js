@@ -17,13 +17,13 @@ const TableBody = (props) => {
   const {autores} = props;  
   return (
     <tbody>
-        {autores.map((item, index) => {
+        {autores.map((item) => {
           return(
-            <tr key={index}>
+            <tr key={item.id}>
               <td>{item.nome}</td>
               <td>{item.livro}</td>
               <td>{item.preco}</td>
-              <td><button className="waves-effect waves-light indigo lighten-2 btn" onClick={ () => props.removeAutor(index) }>Remover</button></td>
+              <td><button className="waves-effect waves-light indigo lighten-2 btn" onClick={ () => props.removeAutor(item.id) }>Remover</button></td>
             </tr>
           )
         })}
